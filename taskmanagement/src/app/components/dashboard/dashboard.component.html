@@ -6,8 +6,12 @@
         <a mat-button routerLink="/dashboard/addticket">Add Ticket</a>
         <div class="ml-auto" *ngIf="isViewAllTicketsActive()">
             <mat-form-field appearance="fill">
-                <mat-label>Search Name</mat-label>
-                <input matInput placeholder="Search Name" (input)="applyFilter($event)" />
+                <mat-label>Filter by:</mat-label>
+                <mat-select (selectionChange)="applyFilter($event)">
+                    <mat-option value="Work">Work</mat-option>
+                    <mat-option value="Personal">Personal</mat-option>
+                    <mat-option value="Shopping">Shopping</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
     </div>

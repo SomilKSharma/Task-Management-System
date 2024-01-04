@@ -67,7 +67,7 @@ export class DashboardComponent {
   ];
 
   applyFilter(event: any): void {
-    const filterValue = event.target.value.toLowerCase();
+    const filterValue = event.value.toLowerCase();
     this.filterService.setFilter(filterValue);
   }
  
