@@ -1,0 +1,73 @@
+<!-- addticket.component.html -->
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="max-w-md w-full p-8 bg-white shadow-lg rounded-md">
+        <form #ticketForm="ngForm" (ngSubmit)="createTicket()" novalidate>
+
+            <div class="text-center mb-6">
+                <h2 class="mat-h2 font-bold text-blue-800">Add Task</h2>
+            </div>
+
+            <div class="mb-6">
+
+                <!-- Department -->
+                <mat-form-field class="mt-4 w-full">
+                    <mat-label>Title:</mat-label>
+                    <input matInput [(ngModel)]="newTicket.Title" name="Title" required>
+                    <mat-error *ngIf="ticketForm.controls['Title']?.invalid && ticketForm.controls['Title']?.touched">
+                        Title is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Category -->
+                <mat-form-field class="mt-4 w-full">
+                    <mat-label>Category:</mat-label>
+                    <mat-select [(ngModel)]="newTicket.Category" name="Category" required>
+                        <mat-option value="Work">Work</mat-option>
+                        <mat-option value="Personal">Personal</mat-option>
+                        <mat-option value="Shopping">Shopping</mat-option>
+                    </mat-select>
+                    <mat-error
+                        *ngIf="ticketForm.controls['Category']?.invalid && ticketForm.controls['Category']?.touched">
+                        Category is required
+                    </mat-error>
+                </mat-form-field>
+
+
+
+                <!-- Status -->
+                <mat-form-field class="mt-4 w-full">
+                    <mat-label>Status:</mat-label>
+                    <mat-select [(ngModel)]="newTicket.Status" name="Status" required>
+                        <mat-option value="Open">Open</mat-option>
+                        <mat-option value="Closed">Closed</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ticketForm.controls['Status']?.invalid && ticketForm.controls['Status']?.touched">
+                        Status is required
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- DueDate -->
+                <mat-form-field class="mt-4 w-full">
+                    <mat-label>Due Date:</mat-label>
+                    <input matInput [matDatepicker]="dueDatePicker" [(ngModel)]="newTicket.DueDate" name="DueDate"
+                        required>
+                    <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dueDatePicker></mat-datepicker>
+                    <mat-error
+                        *ngIf="ticketForm.controls['DueDate']?.invalid && ticketForm.controls['DueDate']?.touched">
+                        Due Date is required
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <!-- Save and Cancel buttons -->
+            <div class="flex justify-between items-center mt-8">
+                <button type="submit" mat-raised-button color="primary" [disabled]="!ticketForm.valid">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

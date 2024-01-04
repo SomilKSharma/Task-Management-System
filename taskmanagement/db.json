@@ -1,0 +1,51 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "123",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "username": "user2",
+      "password": "password2"
+    }
+  ],
+  "tickets": [
+    {
+      "Id": 1,
+      "Category": "Work",
+      "Title": "Hey",
+      "Status": "Open",
+      "DueDate": "2024-01-25"
+    },
+    {
+      "Id": 2,
+      "Category": "Shopping",
+      "Title": "add",
+      "Status": "Open",
+      "DueDate": "2024-01-26T18:30:00.000Z"
+    },
+    {
+      "Id": 3,
+      "Category": "Work",
+      "Title": "dsga",
+      "Status": "Open",
+      "DueDate": "2024-01-30"
+    },
+    {
+      "Id": 4,
+      "Category": "Shopping",
+      "Title": "gfds",
+      "Status": "Open",
+      "DueDate": "2024-01-18T18:30:00.000Z"
+    },
+    {
+      "Id": 5,
+      "Category": "Work",
+      "Title": "t43rt",
+      "Status": "Open",
+      "DueDate": "2024-01-30"
+    }
+  ]
+}

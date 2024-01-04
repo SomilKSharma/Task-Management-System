@@ -1,0 +1,37 @@
+<div class="flex h-[87vh]" [@fadeIn]>
+
+    <div class="flex-1 flex items-center justify-center bg-gray-100">
+        <div class="max-w-md w-full p-8 bg-white shadow-lg rounded-md">
+
+            <div>
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-bold text-blue-800">Login</h2>
+                </div>
+
+                <form #loginForm="ngForm" class="space-y-4" (ngSubmit)="onSubmit()">
+                    <mat-form-field class="w-full">
+                        <input matInput placeholder="Username" name="username" [(ngModel)]="username" required>
+                        <mat-error
+                            *ngIf="loginForm.controls['username']?.hasError('required') && (loginForm.controls['username']?.dirty || loginForm.controls['username']?.touched)">
+                            Username is required
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full">
+                        <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="password"
+                            required>
+                        <mat-error
+                            *ngIf="loginForm.controls['password']?.hasError('required') && (loginForm.controls['password']?.dirty || loginForm.controls['password']?.touched)">
+                            Password is required
+                        </mat-error>
+                    </mat-form-field>
+                    <p *ngIf="setError" class="text-red-600">Invalid Credentials</p>
+                    <button mat-raised-button [style.background-color]="(!username || !password) ? '' : '#2196f3'"
+                        [style.color]="(!username || !password) ? '' : '#ffffff'" type="submit"
+                        [disabled]="!username || !password" class="w-full p-3  text-white rounded-md">
+                        Login
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

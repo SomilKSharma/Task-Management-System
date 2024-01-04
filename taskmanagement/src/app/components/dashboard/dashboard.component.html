@@ -1,0 +1,17 @@
+<!-- dashboard.component.html -->
+
+<div class="bg-white text-black p-4">
+    <div class="flex border p-2 items-center">
+        <a mat-button routerLink="/dashboard/viewalltickets">Dashboard</a>
+        <a mat-button routerLink="/dashboard/addticket">Add Ticket</a>
+        <div class="ml-auto" *ngIf="isViewAllTicketsActive()">
+            <mat-form-field appearance="fill">
+                <mat-label>Search Name</mat-label>
+                <input matInput placeholder="Search Name" (input)="applyFilter($event)" />
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<div class="p-4">
+    <router-outlet></router-outlet>
+</div>
