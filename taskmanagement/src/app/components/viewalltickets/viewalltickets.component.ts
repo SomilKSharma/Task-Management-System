@@ -13,11 +13,11 @@ import { MatSort } from '@angular/material/sort';
 })
 export class ViewallticketsComponent implements OnInit {
   displayedColumns: string[] = [
-    'Id',
     'Title',
-    'Category',
     'Status',
     'DueDate',
+    'Edit',
+    'Delete'
   ];
 
   displayedTickets = new MatTableDataSource<any>([]);
@@ -65,4 +65,24 @@ export class ViewallticketsComponent implements OnInit {
   editTicket(ticketId: number): void {
     this.router.navigate(['/dashboard', 'editticket', ticketId]);
   }
+  
+  // In your component
+deleteTicket(id: number): void {
+  this.ticketService.deleteTicket(id).subscribe(
+    () => {
+      console.log('Ticket deleted successfully');
+      this.fetchOpenTickets();
+      this.filterService.getFilter().subscribe((filter) => {
+        this.filterTickets(filter);
+      });
+      // Optionally, update your local data or UI here
+    },
+    (error) => {
+      console.error('Error deleting ticket:', error);
+      // Handle the error and update the UI accordingly
+    }
+  );
+}
+
+
 }
