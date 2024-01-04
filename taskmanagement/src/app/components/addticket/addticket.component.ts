@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TicketService } from '../../services/ticket.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-addticket',
@@ -9,14 +10,17 @@ import { Router } from '@angular/router';
 })
 export class AddticketComponent {
   newTicket = {
-    'Id' : 0,
+    'Id': 0,
+    'userId':0,
     'Category': '',
     'Title':'',
     'Status' : '',
     'DueDate' : '',
   };
 
-  constructor(private ticketService: TicketService, private router:Router) {}
+  constructor(private ticketService: TicketService, private router: Router, private authService: AuthService) {
+    this.newTicket.userId = this.authService.getUserId()!;
+  }
 
   createTicket(): void {
     

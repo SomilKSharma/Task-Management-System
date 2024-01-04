@@ -16,12 +16,12 @@ server.use(jsonServer.bodyParser);
 // Custom routes for login and logout
 server.post('/api/login', (req, res) => {
     const { username, password } = req.body;
-    console.log(username, password);
     const user = router.db.get('users').find({ username, password }).value();
-    console.log(user);
     if (user) {
         const token = generateAuthToken(user);
-        res.json({ token });
+        const userId = user.id;
+        console.log(userId);
+        res.json({ token, userId });
     } else {
         res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -81,7 +81,8 @@ server.post('/api/logout', (req, res) => {
 
 // Custom route for getting all tickets
 server.get('/api/tickets', (req, res) => {
-    const tickets = router.db.get('tickets').value();
+    const userId = parseInt(req.query.userId, 10); // Parse userId from query parameters
+    const tickets = router.db.get('tickets').filter({ userId }).value(); // Filter tickets by userId
     res.json(tickets);
 });
 

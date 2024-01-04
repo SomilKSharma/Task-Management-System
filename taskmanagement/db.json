@@ -14,10 +14,43 @@
   "tickets": [
     {
       "Id": 1,
+      "userId": 1,
       "Category": "Personal",
       "Title": "Get my Nails Done",
       "Status": "Open",
       "DueDate": "2024-01-12"
+    },
+    {
+      "Id": 2,
+      "userId": 2,
+      "Category": "Shopping",
+      "Title": "Complete Task Management System",
+      "Status": "Open",
+      "DueDate": "2024-01-12"
+    },
+    {
+      "Id": 3,
+      "userId": 1,
+      "Category": "Work",
+      "Title": "Fill Work Data",
+      "Status": "Open",
+      "DueDate": "2024-01-26"
+    },
+    {
+      "Id": 4,
+      "userId": 2,
+      "Category": "Personal",
+      "Title": "Make Snake Dance",
+      "Status": "Open",
+      "DueDate": "2024-01-28"
+    },
+    {
+      "Id": 5,
+      "userId": 1,
+      "Category": "Shopping",
+      "Title": "Submit Assignment to Mayura",
+      "Status": "Open",
+      "DueDate": "2024-01-30"
     }
   ]
 }

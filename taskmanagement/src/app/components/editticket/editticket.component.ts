@@ -11,14 +11,16 @@ import { Router } from '@angular/router';
 export class EditticketComponent implements OnInit {
   editing: boolean = true;
   ticket={
-    'Id' : 0,
+    'Id': 0,
+    'userId':0,
     'Category': '',
     'Title':'',
     'Status' : '',
     'DueDate' : '',
   };
 
-  constructor(private route: ActivatedRoute, private ticketService: TicketService, private router:Router) {}
+  constructor(private route: ActivatedRoute, private ticketService: TicketService, private router: Router) {
+  }
 
   ngOnInit() {
     // Retrieve the 'id' parameter from the route

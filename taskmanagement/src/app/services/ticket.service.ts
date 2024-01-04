@@ -11,8 +11,8 @@ export class TicketService {
   constructor(private http: HttpClient) { }
 
   // Fetch all tickets
-  getTickets(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/tickets`);
+  getTickets(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/tickets?userId=${userId}`);
   }
 
   // Fetch a single ticket by ID

@@ -1,16 +1,15 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api'; // Adjust as needed
-  private tokenKey = 'authToken'; // Key for storing the authentication token in localStorage
+  private apiUrl = 'http://localhost:3000/api';
+  private tokenKey = 'authToken';
+  private userKey = 'loggedInUser'; 
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +19,11 @@ export class AuthService {
       .pipe(
         tap(response => {
           if (response.token) {
+            // Set authentication token
             this.setAuthToken(response.token);
+
+            // Set user details
+            this.setLoggedInUser(response.userId); // Adjust based on your API response structure
           }
         }),
         catchError(this.handleError<any>('login'))
@@ -28,22 +31,21 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    console.log('Call netgid');
     const value = this.http.post<any>(`${this.apiUrl}/logout`, {})
       .pipe(
         tap(() => {
-          this.clearAuthToken()
+          // Clear authentication token and user details on logout
+          this.clearAuthToken();
+          this.clearLoggedInUser();
         }),
         catchError(this.handleError<any>('logout'))
-    );
-    // Subscribe to the observable
+      );
+
     value.subscribe(
       data => {
-        // Handle the successful response if needed
         console.log('Logout successful', data);
       },
       error => {
-        // Handle the error if needed
         console.error('Logout failed', error);
       }
     );
@@ -54,22 +56,18 @@ export class AuthService {
     return !!this.getAuthToken();
   }
 
-  getUsername(): string | null {
-    const token = this.getAuthToken();
-    if (token) {
-      // Decode the token to get user information
-      // Example: const user = jwt_decode(token);
-      // return user.username;
-      return 'exampleUsername';
-    }
-    return null;
+
+  getUserId(): number | null {
+    const user = this.getLoggedInUser();
+    console.log(user);
+    return user ? user : null;
   }
 
   private setAuthToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
   }
 
-   getAuthToken(): string | null {
+  getAuthToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
 
@@ -77,7 +75,19 @@ export class AuthService {
     localStorage.removeItem(this.tokenKey);
   }
 
-  // Add additional error handling logic
+  private setLoggedInUser(user: any): void {
+    localStorage.setItem(this.userKey, JSON.stringify(user));
+  }
+
+  private getLoggedInUser(): any {
+    const userString = localStorage.getItem(this.userKey);
+    return userString ? JSON.parse(userString) : null;
+  }
+
+  private clearLoggedInUser(): void {
+    localStorage.removeItem(this.userKey);
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-viewalltickets',
@@ -19,7 +20,7 @@ export class ViewallticketsComponent implements OnInit {
     'Edit',
     'Delete'
   ];
-
+  userId = 0;
   displayedTickets = new MatTableDataSource<any>([]);
   itemsPerPage = 5;
   currentPage = 1;
@@ -30,8 +31,11 @@ export class ViewallticketsComponent implements OnInit {
   constructor(
     private filterService: FilterService,
     private ticketService: TicketService,
+    private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+    this.userId = this.authService.getUserId()!;
+  }
 
   ngOnInit(): void {
     this.fetchOpenTickets();
@@ -41,7 +45,7 @@ export class ViewallticketsComponent implements OnInit {
   }
 
   fetchOpenTickets(): void {
-    this.ticketService.getTickets().subscribe((tickets) => {
+    this.ticketService.getTickets(this.userId).subscribe((tickets) => {
       this.displayedTickets = new MatTableDataSource(tickets);
       this.displayedTickets.paginator = this.paginator;
       this.displayedTickets.sort = this.sort;
